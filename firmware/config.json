@@ -1,0 +1,5 @@
+{
+  "board": "hi3861v100",
+  "kernel": "liteos_m",
+  "device_path": "device/hisilicon/hispark_pegasus/sdk_liteos"
+}
