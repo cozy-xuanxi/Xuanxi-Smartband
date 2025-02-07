@@ -1,5 +1,40 @@
 {
+  "product_name": "xuanxi_smartband",
+  "device_company": "hisilicon",
   "board": "hi3861v100",
-  "kernel": "liteos_m",
-  "device_path": "device/hisilicon/hispark_pegasus/sdk_liteos"
+  "kernel_type": "liteos_m",
+  "kernel_version": "3.0.0",
+  
+  "subsystems": 
+  [
+    {
+      "subsystem": "iot_hardware",
+      "components": 
+      [
+        { "component": "peripheral", "features": [] }
+      ]
+    },
+    {
+      "subsystem": "kernel",
+      "components": 
+      [
+        { "component": "liteos_m", "features": [] }
+      ]
+    }
+  ],
+  
+  "vendor_adapter_dir": "",
+  
+  "third_party_dir": 
+  [
+    "//xuanxi-smartband/firmware/drivers/ssd1306"  
+  ],
+
+  "board_path": "//device/hisilicon/hispark_pegasus",
+  
+  "features": 
+  {
+    "enable_ohos_test": false  
+  }
+  
 }

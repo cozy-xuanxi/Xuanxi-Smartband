@@ -1,4 +1,52 @@
-# Copyright (C) 2020 Hisilicon (Shanghai) Technologies Co., Ltd. All rights reserved.
+# firmware/BUILD.gn
+import("//build/lite/config/component/lite_component.gni")
 
-group("bearpi_hm_nano") {
+# 定义可执行文件目标
+executable("xuanxi_smartband") {
+  # 核心源文件
+  sources = [
+    "main/app_main.c",
+    
+    # 传感器驱动
+    "drivers/max30102.c",
+    "drivers/mpu6050.c",
+    "drivers/ssd1306.c",
+    
+    # 算法模块
+    "algorithms/spirit_calculator.c",
+    "algorithms/posture_detection.c",
+    "algorithms/focus_analysis.c",
+  ]
+
+  # 头文件路径
+  include_dirs = [
+    "include",
+    "//kernel/liteos_m/kernel/include",
+    "//device/hisilicon/hispark_pegasus/sdk_liteos/include",
+  ]
+
+  # 依赖项
+  deps = [
+    "//base/iot_hardware/peripheral:iot_peripheral",                          # 外设驱动
+    "//kernel/liteos_m:liteos",                                               # LiteOS-M内核
+    "//device/hisilicon/hispark_pegasus/hi3861_adapter/hals:hi3861_adapter",  # Hi3861适配层
+  ]
+
+  # 编译器选项
+  cflags = [
+    "-Wno-unused-parameter",
+    "-Os",                    # 优化代码体积
+    "-fno-short-enums"        # 避免枚举类型优化导致兼容问题
+  ]
+
+  # 链接选项
+  ldflags = [
+    "-Wl,--gc-sections",  # 移除未使用代码段
+    "-u _printf_float"    # 允许printf输出浮点数
+  ]
+}
+
+# 将目标加入鸿蒙组件系统
+lite_component("xuanxi") {
+  features = [ ":xuanxi_smartband" ]
 }
